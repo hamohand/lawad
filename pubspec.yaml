@@ -18,6 +18,9 @@ dependencies:
 ######## fait le 20220911 ############
 # Liens
 url_launcher: ^6.0.20
+# json
+json_annotation: ^4.4.0
+#########################################
 
 dev_dependencies:
   flutter_test:
@@ -26,9 +29,14 @@ dev_dependencies:
 ######## fait le 20220911 ############
 # Audio
 just_audio: ^0.9.20
-  
-    
-  flutter_lints: ^2.0.0
+# http (à voir)
+http: ^0.13.3
+# pour json
+build_runner: ^2.1.8
+json_serializable: ^6.1.5  
+#####################################
+
+flutter_lints: ^2.0.0
 
 flutter:
   uses-material-design: true
@@ -41,7 +49,14 @@ fonts:
     - family: Amazigh arial bold
       fonts:
         - asset: assets/fonts/MZARIALB.TTF
-  
+#
+assets:
+  - assets/images/
+  - assets/images/lettres/
+  - assets/audio_lettres/
+  - assets/audio_exemples/
+  - assets/json/lettres.json
+
   
   
   
