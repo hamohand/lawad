@@ -14,23 +14,21 @@ dependencies:
     sdk: flutter
   
   cupertino_icons: ^1.0.2
-
-######## fait le 20220911 ############
-# Liens
-url_launcher: ^6.0.20
-# json
-json_annotation: ^4.4.0
+  ######## fait le 20220911 ############
+  # Liens
+  url_launcher: ^6.0.20
+  #json
+  json_annotation: ^4.4.0
 #########################################
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-    
 ######## fait le 20220911 ############
 # Audio
-just_audio: ^0.9.20
+  just_audio: ^0.9.20
 # http (à voir)
-http: ^0.13.3
+  http: ^0.13.3
 # pour json
 build_runner: ^2.1.8
 json_serializable: ^6.1.5  
@@ -56,6 +54,7 @@ assets:
   - assets/audio_lettres/
   - assets/audio_exemples/
   - assets/json/lettres.json
+#####################################
 
   
   

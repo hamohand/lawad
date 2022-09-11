@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:berbyle_web220605/themes.dart';
-import 'package:berbyle_web220605/titre.dart';
+import 'package:lawad/themes.dart';
+import 'package:lawad/titre.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http; // voir pubspec.yaml
+//import 'package:http/http.dart' as http; // voir pubspec.yaml
 
 import 'models/lettre_model.dart';
 import 'onglets/apropos.dart';
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       /*theme: ThemeData(
         primarySwatch: Colors.blue,
       ),*/
-      theme: monThemeData1(context, vert),
+      theme: monThemeData1(context, ambre),
       //theme: monThemeData2(context, numCouleurBase_1),
       //theme: monThemeData3(context),
       home: const MyHomePage(title: appTitle),
@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 /* ***** Chargement json : deux méthodes ****** */
 // méthode 1, à consolider
-
+/*
 //Future<List<Photo>> _chargerHttp(http.Client client) async {
 Future<List<Lettre>?> _chargerHttp(http.Client client) async {
   final response = await client
@@ -120,7 +120,7 @@ Future<List<Lettre>?> _chargerHttp(http.Client client) async {
   return convertir(response.body);
   // Use the compute function to run parsePhotos in a separate isolate : : methode 2
   //return compute(parsePhotos, response.body);
-}
+} */
 
 // méthode 2 OK
 //Future<List<Photo>> _chargerRoot() async {

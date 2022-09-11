@@ -1,5 +1,4 @@
-
-import 'package:berbyle_web220605/models/prononciation_model.dart';
+import 'package:lawad/models/prononciation_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 /// Ceci permet à la classe `User` d'accéder aux membres privés dans

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'models/lettre_model.dart';
-import 'package:http/http.dart' as http; // voir pubspec.yaml
+//import 'package:http/http.dart' as http; // voir pubspec.yaml
 
 class ChargeJson extends StatelessWidget {
   const ChargeJson({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class ChargeJson extends StatelessWidget {
 }
 /* ***** Chargement json : deux méthodes ****** */
 // méthode 1, à consolider
-
+/*
 //Future<List<Photo>> _chargerHttp(http.Client client) async {
 Future<List<Lettre>?> _chargerHttp(http.Client client) async {
   final response = await client
@@ -28,7 +28,7 @@ Future<List<Lettre>?> _chargerHttp(http.Client client) async {
   return convertir(response.body);
   // Use the compute function to run parsePhotos in a separate isolate : : methode 2
   //return compute(parsePhotos, response.body);
-}
+} */
 
 // méthode 2 OK
 //Future<List<Photo>> _chargerRoot() async {
