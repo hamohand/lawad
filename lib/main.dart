@@ -1,115 +1,169 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:berbyle_web220605/themes.dart';
+import 'package:berbyle_web220605/titre.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http; // voir pubspec.yaml
+
+import 'models/lettre_model.dart';
+import 'onglets/apropos.dart';
+import 'onglets/clavier.dart';
+import 'onglets/liens/liens.dart';
+import 'onglets/liste/0_lettres_list.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    const String appTitle = 'Alphabet';
+    // Thèmes
+    // exemples variations prédéfinies, méthode 1
+    const Color bleu = Colors.lightBlue;
+    const Color vert = Colors.green;
+    const Color ambre = Colors.amber;
+    final double zoom = 1.0;
+    //exemples couleurs, méthode 2
+    const int numCouleurBase_1 = 0xFF40C4FF; // LightBlueAccent
+    const int numCouleurBase_2 = 0xFFFFB300; // ambre foncé
+    const int numCouleurBase_3 = 0xFF4CAF50; //lightGreenAccent
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
+      title: appTitle,
+      /*theme: ThemeData(
         primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      ),*/
+      theme: monThemeData1(context, vert),
+      //theme: monThemeData2(context, numCouleurBase_1),
+      //theme: monThemeData3(context),
+      home: const MyHomePage(title: appTitle),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: true,
+          toolbarHeight: 98,
+          title: const Titre(),
+          /*Text("Titre",
+        style: Theme.of(context).textTheme.headline1,),*/
+          bottom: TabBar(
+            labelColor: Colors.white,
+            unselectedLabelColor: Theme.of(context).primaryColorLight,
+            tabs: const [
+              Tab(icon: Icon(Icons.hdr_auto)),
+              //Tab(icon: Icon(Icons.abc_outlined,),),
+              Tab(icon: Icon(Icons.keyboard)),
+              Tab(icon: Icon(Icons.public)),
+              Tab(icon: Icon(Icons.info)),
+            ],
+          ),
+        ),
+        body: TabBarView(children: [
+          FutureBuilder<List<Lettre>?>(
+              //future: _chargerHttp(http.Client()), // méthode 1
+              future: _chargerRoot('assets/json/lettres.json'), // méthode 2
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.hasError)
+                // ignore: avoid_print
+                {
+                  print(snapshot.error);
+                }
+                return snapshot.hasData
+                    ? LettresList(
+                        tabLettres: snapshot.data,
+                        zoom: 1.0,
+                      )
+                    : const Center(
+                        child: CircularProgressIndicator(),
+                      );
+              }),
+          const Center(child: Clavier()),
+          const Center(child: Liens()),
+          const Center(child: Apropos()),
+        ]),
+      ),
+    );
   }
+}
+
+/* ***** Chargement json : deux méthodes ****** */
+// méthode 1, à consolider
+
+//Future<List<Photo>> _chargerHttp(http.Client client) async {
+Future<List<Lettre>?> _chargerHttp(http.Client client) async {
+  final response = await client
+      //   .get(Uri.parse('https://jsonplaceholder.typicode.com/photos'));
+      .get(Uri.parse('assets/json/lettres.json'));
+  //.get(Uri.parse('https://drive.google.com/file/d/1AxJHclljcFX7b03G7B9G-QOuVDaNxlXS/view?usp=sharing'));
+
+  // Use the compute function to run parsePhotos : methode 1
+  return convertir(response.body);
+  // Use the compute function to run parsePhotos in a separate isolate : : methode 2
+  //return compute(parsePhotos, response.body);
+}
+
+// méthode 2 OK
+//Future<List<Photo>> _chargerRoot() async {
+Future<List<Lettre>?> _chargerRoot(String url) async {
+  String jsonString = //await rootBundle.loadString('json/photos.json');
+      //await rootBundle.loadString('https://drive.google.com/file/d/1AxJHclljcFX7b03G7B9G-QOuVDaNxlXS/view?usp=sharing');
+      await rootBundle.loadString(url);
+  //print('main: jsonString= $jsonString');
+  return convertir(jsonString);
+}
+
+/* ***** Conversion json ****** */
+List<Lettre>? convertir(String responseBody) {
+  //final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+  final parsed = jsonDecode(responseBody);
+  //print('main: parsed= $parsed');
+  final parsedTab =
+      parsed.map<Lettre>((json) => Lettre.fromJson(json)).toList();
+  print('main: parsedTab= ${parsedTab[0].prononciations[0].exemple}');
+  return parsedTab;
+}
+/* ********** */
+
+class toto extends StatefulWidget {
+  const toto({Key? key}) : super(key: key);
+
+  @override
+  State<toto> createState() => _totoState();
+}
+
+class _totoState extends State<toto> {
+  @override
+  Widget build(BuildContext context) {
+    final String wordPair = "WordPair . aléatoire ()";
+    return Text(wordPair);
+  }
+}
+
+class titi extends StatelessWidget {
+  const titi({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+    return Container();
   }
 }
