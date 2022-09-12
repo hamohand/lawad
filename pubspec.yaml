@@ -40,7 +40,7 @@ flutter:
   uses-material-design: true
 
 ######## fait le 20220911 ############
-fonts:
+  fonts:
     - family: Amazigh tms
       fonts:
         - asset: assets/fonts/MZTIMENR.TTF
@@ -48,12 +48,12 @@ fonts:
       fonts:
         - asset: assets/fonts/MZARIALB.TTF
 #
-assets:
-  - assets/images/
-  - assets/images/lettres/
-  - assets/audio_lettres/
-  - assets/audio_exemples/
-  - assets/json/lettres.json
+  assets:
+    - assets/images/
+    - assets/images/lettres/
+    - assets/audio_lettres/
+    - assets/audio_exemples/
+    - assets/json/lettres.json
 #####################################
 
   
