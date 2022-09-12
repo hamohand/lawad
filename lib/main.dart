@@ -144,26 +144,3 @@ List<Lettre>? convertir(String responseBody) {
 }
 /* ********** */
 
-class toto extends StatefulWidget {
-  const toto({Key? key}) : super(key: key);
-
-  @override
-  State<toto> createState() => _totoState();
-}
-
-class _totoState extends State<toto> {
-  @override
-  Widget build(BuildContext context) {
-    final String wordPair = "WordPair . aléatoire ()";
-    return Text(wordPair);
-  }
-}
-
-class titi extends StatelessWidget {
-  const titi({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
