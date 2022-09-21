@@ -1,4 +1,4 @@
-package com.example.lawad
+package com.muhend.lawad
 
 import io.flutter.embedding.android.FlutterActivity
 

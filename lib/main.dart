@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:lawad/themes.dart';
 import 'package:lawad/titre.dart';
@@ -26,14 +25,14 @@ class MyApp extends StatelessWidget {
     const String appTitle = 'Alphabet';
     // Thèmes
     // exemples variations prédéfinies, méthode 1
-    const Color bleu = Colors.lightBlue;
-    const Color vert = Colors.green;
+    //const Color bleu = Colors.lightBlue;
+    //const Color vert = Colors.green;
     const Color ambre = Colors.amber;
-    final double zoom = 1.0;
+    //final double zoom = 1.0;
     //exemples couleurs, méthode 2
-    const int numCouleurBase_1 = 0xFF40C4FF; // LightBlueAccent
+    /*const int numCouleurBase_1 = 0xFF40C4FF; // LightBlueAccent
     const int numCouleurBase_2 = 0xFFFFB300; // ambre foncé
-    const int numCouleurBase_3 = 0xFF4CAF50; //lightGreenAccent
+    const int numCouleurBase_3 = 0xFF4CAF50; //lightGreenAccent*/
     return MaterialApp(
       title: appTitle,
       /*theme: ThemeData(
