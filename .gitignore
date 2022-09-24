@@ -45,3 +45,4 @@ app.*.map.json
 
 #Moh
 assets
+/android/key.properties

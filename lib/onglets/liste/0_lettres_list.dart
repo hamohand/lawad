@@ -65,28 +65,34 @@ Widget afficheLettre(BuildContext context, String? lalettre, double? taille) {
 }
 
 /* */
-Widget boiteVide() {
+/* Widget const SizedBox(width: 10), {
   return Container(
     color: Colors.transparent,
     width: 10.0,
     //height: 30.0,
     child: const Text(''),
   );
-}
+} */
 
 /* */
 Widget details(BuildContext context, lettreDef, index) {
-  return IconButton(
-    // icon: const Icon(Icons.record_voice_over),
-    icon: const Icon(Icons.more_horiz_rounded),
-    //color: Colors.lightGreen,
-    color: Theme.of(context).primaryColor,
-    // hoverColor: Colors.red,
-    onPressed: () {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => AfficheDetails(lettreDef, index)));
-    },
+  return Row(
+    children: [
+      const SizedBox(width: 10),
+      IconButton(
+        alignment: Alignment.centerRight,
+        // icon: const Icon(Icons.more_horiz_rounded),
+        icon: const Icon(Icons.arrow_right),
+        //color: Colors.lightGreen,
+        color: Theme.of(context).primaryColor,
+        // hoverColor: Colors.red,
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AfficheDetails(lettreDef, index)));
+        },
+      ),
+    ],
   );
 }

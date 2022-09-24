@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../models/lettre_model.dart';
@@ -15,26 +14,30 @@ class AfficheDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ignore: todo
-    // TODO: implement build
+    // implement build
     return Scaffold(
+        backgroundColor: Theme.of(context).primaryColorLight,
         appBar: AppBar(
           title: Text('${lettreDef?.lettre}'),
         ),
         body: Column(
           children: [
-            boiteVide(),
+            const SizedBox(width: 10),
             Row(
               children: [
                 afficheLettre(context, lettreDef?.lettreMaj, 2),
-                boiteVide(),
+                const SizedBox(width: 10),
                 afficheLettre(context, lettreDef?.lettre, 2),
-                boiteVide(),
+                const SizedBox(width: 10),
               ],
             ),
             Text('Prononciation(s)',
                 style: Theme.of(context).textTheme.headline3),
             Text('et sons équivalents',
                 style: Theme.of(context).textTheme.headline3),
+            const SizedBox(width: 10),
+            const SizedBox(height: 20),
+            const SizedBox(width: 10),
             lesPrononciations_details(context, lettreDef),
           ],
         ));
@@ -63,10 +66,12 @@ Widget tabPrononciations_details(
 ) {
   // éléments du tableau des prononciations s'il y a lieu
   return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-    boiteVide(),
+    //const SizedBox(width: 10),
     Row(
       children: [
-        const Text('-'),
+        //const Text('-'),
+        afficheLettre(context, lettreDef?.lettre, 1),
+        //const SizedBox(width: 10),
         SonLettre(
           titre: lettreDef.lettre,
           fichier:
@@ -79,7 +84,7 @@ Widget tabPrononciations_details(
             lettreDef.prononciations[index].exemple['texte'],
             Theme.of(context).textTheme.bodyText2,
             1.0),
-        //boiteVide(),
+        //const SizedBox(width: 10),
         /* Icon(
           Icons.record_voice_over,
           color: Theme.of(context).primaryColor,
@@ -90,7 +95,7 @@ Widget tabPrononciations_details(
               'assets/audio_exemples/${lettreDef.prononciations[index].exemple['son']}',
           couleurFond: Colors.transparent,
         ),
-        boiteVide(),
+        //const SizedBox(width: 10),
         Container(
           decoration: BoxDecoration(
               border: Border.all(width: 0.5, color: Colors.white)),
@@ -103,16 +108,13 @@ Widget tabPrononciations_details(
         ),
       ],
     ),
-    Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-      Row(
+    Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            Icons.arrow_right_alt_outlined,
-            color: Theme.of(context).primaryColor,
-          ),
           RichText(
               text: TextSpan(
-                  text: ' Français:',
+                  text: 'Français:',
                   style: Theme.of(context).textTheme.bodyText1,
                   children: [
                 TextSpan(
@@ -121,18 +123,17 @@ Widget tabPrononciations_details(
                 ),
               ])),
           RichText(
+              //textAlign: TextAlign.left,
               text: TextSpan(
-                  text: ' Arabe:',
+                  text: 'Arabe:',
                   style: Theme.of(context).textTheme.bodyText1,
                   children: [
                 TextSpan(
                   text: '${lettreDef.prononciations[index].arabe}',
                   style: Theme.of(context).textTheme.bodyText2,
                 )
-              ])),
-        ],
-      )
-    ])
+              ]))
+        ])
   ]);
 }
 

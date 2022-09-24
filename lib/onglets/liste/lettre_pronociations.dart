@@ -1,9 +1,7 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/lettre_model.dart';
-import '0_lettres_list.dart';
 import 'lettre_son.dart';
 
 class LettrePrononciations extends StatelessWidget {
@@ -54,7 +52,7 @@ Widget tabPrononciations(
         fichier: 'assets/audio_lettres/${lettreDef.prononciations[index].son}',
         couleurFond: couleurFond,
       ),
-      boiteVide(),
+      const SizedBox(width: 10),
       afficheExemple(context, lettreDef.prononciations[index].exemple['texte'],
           Theme.of(context).textTheme.bodyText1, zoom),
       Container(
