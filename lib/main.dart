@@ -25,9 +25,9 @@ class MyApp extends StatelessWidget {
     const String appTitle = 'Alphabet';
     // Thèmes
     // exemples variations prédéfinies, méthode 1
-    //const Color bleu = Colors.lightBlue;
+    const Color bleu = Colors.lightBlue;
     //const Color vert = Colors.green;
-    const Color ambre = Colors.amber;
+    //const Color ambre = Colors.amber;
     //final double zoom = 1.0;
     //exemples couleurs, méthode 2
     /*const int numCouleurBase_1 = 0xFF40C4FF; // LightBlueAccent
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       /*theme: ThemeData(
         primarySwatch: Colors.blue,
       ),*/
-      theme: monThemeData1(context, ambre),
+      theme: monThemeData1(context, bleu),
       //theme: monThemeData2(context, numCouleurBase_1),
       //theme: monThemeData3(context),
       home: const MyHomePage(title: appTitle),

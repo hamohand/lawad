@@ -28,6 +28,7 @@ Widget laListe(BuildContext context, tabLettres, zoom) {
             ? couleurFond = couleurFondClair
             : couleurFond = couleurFondFonce;
         return Container(
+            padding: EdgeInsets.symmetric(vertical: 2.0),
             color: couleurFond,
             child: Row(
               children: [
