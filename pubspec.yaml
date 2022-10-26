@@ -19,6 +19,7 @@ dependencies:
   url_launcher: ^6.0.20
   #json
   json_annotation: ^4.4.0
+  firebase_core: ^2.1.0
   
 #########################################
 
